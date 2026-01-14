@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------
+  # 1. Serviço da API (Sua aplicação FastAPI)
+  # ----------------------------------------------------------------
+  api:
+    build:
+      context: ..              # O "olho" do Docker na pasta raiz (FASTAPI_STUDY)
+      dockerfile: docker/Dockerfile
+    
+    # O comando que mantém a API rodando e observando mudanças
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+    # Mapeia a porta 8000 do container para a 8000 do seu Ubuntu
+    ports:
+      - "8000:8000"
+
+    # Mapeia seus arquivos locais para dentro do container (Hot Reload)
+    volumes:
+      - ../:/app
+
+    # Variáveis de ambiente (Como a API acha o banco)
+    environment:
+      # Note que o host é 'db' (nome do serviço abaixo), não 'localhost'
+      - DATABASE_URL=postgresql://user:password@db:5432/fastapi_db
+    
+    # Garante que a API só tente subir depois que o banco iniciar
+    depends_on:
+      - db
+
+  # ----------------------------------------------------------------
+  # 2. Serviço do Banco de Dados (PostgreSQL)
+  # ----------------------------------------------------------------
+  db:
+    image: postgres:15
+    
+    # Dados de acesso (devem bater com o DATABASE_URL da API)
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=fastapi_db
+
+    # Mapeia a porta para você poder acessar via DBeaver/DataGrip no Ubuntu
+    ports:
+      - "5432:5432"
+
+    # Volume para não perder os dados quando desligar o Docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Declaração do volume do banco
+volumes:
+  postgres_data:

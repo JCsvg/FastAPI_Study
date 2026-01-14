@@ -1,0 +1,48 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Distribuição e Builds (não deve precisar, mas é bom ter) ---
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+
+# --- Ambiente Virtual (ESSENCIAL) ---
+# Ignora a pasta onde você instalou as libs
+.venv/
+venv/
+env/
+
+# --- Variáveis de Ambiente e Segredos (SEGURANÇA MÁXIMA) ---
+# Nunca suba arquivos com senhas reais
+.env
+.env.local
+.env.production
+
+# (Opcional) Permite subir um exemplo sem senhas reais
+! .env.example
+
+# --- IDEs e Editores ---
+# Configurações locais do VS Code
+.vscode/
+
+# Configurações do JetBrains (caso use PyCharm/Rider futuramente)
+.idea/
+
+# Arquivos temporários do Linux/Vim
+*.swp
+*.swo
+
+# --- Docker e Banco de Dados ---
+# Caso você decida mapear o banco para uma pasta local no futuro
+postgres_data/
+pgdata/
+data/
+
+# Logs de erro
+*.log
