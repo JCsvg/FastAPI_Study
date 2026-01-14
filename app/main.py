@@ -2,7 +2,10 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-from app.routes import auth_routes, order_routes
+from app.routes import auth_router, order_router
+
+app.include_router(auth_router)
+app.include_router(order_router)
 
 @app.get("/")
 async def read_root():
