@@ -4,7 +4,7 @@ from .utils import database
 from . import models # <--- Importa os novos arquivos
 
 # Cria as tabelas no banco ao iniciar (se não existirem)
-models.Base.metadata.create_all(bind=database.engine)
+# models.Base.metadata.create_all(bind=database.engine)
 
 
 app = FastAPI()
