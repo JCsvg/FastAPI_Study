@@ -1,7 +1,7 @@
 # Atalho para subir tudo
 up:
-	docker compose -f docker/docker-compose.yml up --build
-
+	# Adicione --env-file .env LOGO APÓS "docker compose"
+	docker compose --env-file .env -f docker/docker-compose.yml up --build
 # Atalho para derrubar tudo
 down:
 	docker compose -f docker/docker-compose.yml down
