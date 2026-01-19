@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from ..models import Usuario
 from ..utils.database import get_db  # <--- 1. Importe sua função geradora
 from ..utils.cripto import bcrypt_context
+from ..schemes import UsuarioScheme
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -15,29 +16,25 @@ async def home():
 
 @auth_router.post("/cadastrar", status_code=status.HTTP_201_CREATED)
 async def cadastrar_usuario(
-    nome: str,    
-    email: str, 
-    senha: str, 
-    ativo: bool = True,
-    admin: bool = False,
+    UsuarioScheme: UsuarioScheme,
     db: Session = Depends(get_db) 
 ):
     # Verificação -- O email já existe?
-    usuario_existente = db.query(Usuario).filter(Usuario.email == email).first()
+    usuario_existente = db.query(Usuario).filter(Usuario.email == UsuarioScheme.email).first()
     if usuario_existente:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, 
             detail="Email já cadastrado"
         )
 
-    senha_criptografada = bcrypt_context.hash(senha)
+    senha_criptografada = bcrypt_context.hash(UsuarioScheme.senha)
 
     novo_usuario = Usuario(
-        nome=nome,
-        email=email,
+        nome=UsuarioScheme.nome,
+        email=UsuarioScheme.email,
         senha=senha_criptografada,
-        ativo=ativo,
-        admin=admin 
+        ativo=UsuarioScheme.ativo,
+        admin=UsuarioScheme.admin
     )
 
     # Transação no Banco
