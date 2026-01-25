@@ -28,8 +28,7 @@ class Pedido(Base):
     id = Column(Integer, primary_key=True, index=True)
     cliente_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     status = Column(SQLEnum(StatusPedido), index=True, nullable=False, default=StatusPedido.PENDENTE)
-    data_criacao = Column(DateTime, nullable=False)
-    valor = Column(Float, nullable=False)
+    preco = Column(Float, nullable=False)
 
     cliente = relationship("Usuario", back_populates="pedidos")
     itens = relationship("ItemPedido", back_populates="pedido")

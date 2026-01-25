@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr, DateTime, Enum as PydanticEnum
 from typing import Optional
-from models import StatusPedido
 
 class UsuarioScheme(BaseModel):
     nome: str
@@ -13,10 +12,6 @@ class UsuarioScheme(BaseModel):
         from_attributes = True
 
 class PedidoScheme(BaseModel):
-    usuario_id: int
-    item: str
-    quantidade: int
-    preco: float
-
+    cliente_id: int
     class Config:
         from_attributes = True
