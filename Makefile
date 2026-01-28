@@ -1,6 +1,5 @@
 # Atalho para subir tudo
 up:
-	# Adicione --env-file .env LOGO APÓS "docker compose"
 	docker compose --env-file .env -f docker/docker-compose.yml up --build
 # Atalho para derrubar tudo
 down:
@@ -12,8 +11,8 @@ logs:
 
 # Atalho para criar migrações
 migrar:
-	docker compose -f docker/docker-compose.yml run --rm api alembic revision --autogenerate -m "$(msg)"
+	docker compose --env-file .env -f docker/docker-compose.yml run --rm api alembic revision --autogenerate -m "$(msg)"
 
 # Atalho para aplicar as migrações no banco
 atualizar:
-	docker compose -f docker/docker-compose.yml run --rm api alembic upgrade head
+	docker compose --env-file .env -f docker/docker-compose.yml run --rm api alembic upgrade head

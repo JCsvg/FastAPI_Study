@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, DateTime, Enum as PydanticEnum
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class UsuarioScheme(BaseModel):
@@ -13,5 +13,12 @@ class UsuarioScheme(BaseModel):
 
 class PedidoScheme(BaseModel):
     cliente_id: int
+    class Config:
+        from_attributes = True
+
+class LoginScheme(BaseModel):
+    email: EmailStr
+    senha: str
+
     class Config:
         from_attributes = True

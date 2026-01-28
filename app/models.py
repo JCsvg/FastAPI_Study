@@ -28,7 +28,7 @@ class Pedido(Base):
     id = Column(Integer, primary_key=True, index=True)
     cliente_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     status = Column(SQLEnum(StatusPedido), index=True, nullable=False, default=StatusPedido.PENDENTE)
-    preco = Column(Float, nullable=False)
+    valor = Column(Float, nullable=True, default=0.0)
 
     cliente = relationship("Usuario", back_populates="pedidos")
     itens = relationship("ItemPedido", back_populates="pedido")
@@ -70,3 +70,4 @@ class Recibo(Base):
     valor = Column(Float, nullable=False)
 
     pedido = relationship("Pedido", back_populates="recibo")
+
