@@ -28,11 +28,10 @@ No estágio atual, a aplicação já possui a estrutura base e testes configurad
 O projeto está seguindo o cronograma do curso. Abaixo, o status atual das funcionalidades:
 
 - [x] **Configuração do Ambiente** (Poetry, Git, Taskipy)
-- [ ] **Estrutura básica da API** (Rotas, Schemas e Settings) 🚧 *<-- Foco Atual*
-- [x] **Testes Automatizados Iniciais** (Pytest)
-- [ ] **Integração com Banco de Dados** (Modelos e SQLAlchemy) 🚧 *<-- Foco Atual*
-- [ ] **Sistema de Migrações** (Alembic)
-- [ ] **Autenticação e Segurança** (JWT)
+- [ ] **Estrutura básica da API** (Rotas, Schemas e Settings) 
+- [ ] **Integração com Banco de Dados** (Modelos e SQLAlchemy) 
+- [x] **Sistema de Migrações** (Alembic)
+- [ ] **Autenticação e Segurança** (JWT) 🚧 *<-- Foco Atual*
 - [ ] **Deploy**
 
 ## 🚀 Como Rodar o Projeto Localmente
