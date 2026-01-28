@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-005571?style=for-the-badge&logo=fastapi)
 
-> 🚧 **Projeto Acadêmico**: Este projeto segue a trilha do curso "FastAPI do Zero". Atualmente estou focando na implementação do Banco de Dados e Migrações. 🚧
+> 🚧 **Projeto Educacional**: Este projeto segue a trilha do curso "FastAPI do Zero". Atualmente estou focando na implementação do Banco de Dados e Migrações. 🚧
 
 ## 📋 Sobre o Projeto
 
@@ -56,16 +56,6 @@ poetry shell
 ```Bash
 task run
 # ou: fastapi dev fast_zero/app.py
-```
----
-
-## 🧪 Executando os Testes
-
-Como o projeto segue TDD, os testes são fundamentais. Para rodar a bateria de testes existente:
-
-```Bash
-task test
-# ou: pytest
 ```
 ---
 
