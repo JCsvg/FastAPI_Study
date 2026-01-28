@@ -17,15 +17,12 @@ No estágio atual, a aplicação já possui a estrutura base e testes configurad
 
 - **Linguagem:** Python 3.11+
 - **Framework:** FastAPI
-- **Gerenciamento de Dependências:** Poetry
-- **Qualidade de Código:** Ruff (Linter/Formatter) & Taskipy
-- **Testes:** Pytest
 - **Banco de Dados:** SQLAlchemy (Em implementação)
 - **Migrações:** Alembic (Em implementação)
 
 ## 📍 Progresso do Desenvolvimento
 
-O projeto está seguindo o cronograma do curso. Abaixo, o status atual das funcionalidades:
+Abaixo, o status atual das funcionalidades:
 
 - [x] **Configuração do Ambiente** (Poetry, Git, Taskipy)
 - [ ] **Estrutura básica da API** (Rotas, Schemas e Settings) 
