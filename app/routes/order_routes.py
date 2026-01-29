@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from ..utils.database import get_db
-from ..models import Pedido, Usuario
+from ..models import Pedido, Usuario, Produto, ItemPedido
 from ..utils.support import verificar_token
 
-from app.schemes import PedidoScheme
+from app.schemes import PedidoScheme, ProdutoScheme, ItemPedidoScheme
 
 order_router = APIRouter(prefix="/pedidos", tags=["pedidos"], dependencies=[Depends(verificar_token)])
 
@@ -72,3 +72,87 @@ async def cancelar_pedido(id_pedido: int, usuario: Usuario = Depends(verificar_t
         "mensagem": "Pedido cancelado com sucesso!",
         "pedido": pedido
     }
+
+@order_router.get("/listar")
+async def listar_pedidos(usuario: Usuario = Depends(verificar_token), db: Session = Depends(get_db)):
+    if not usuario.admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Apenas administradores podem listar todos os pedidos."
+        )
+    
+    pedidos = db.query(Pedido).all()
+
+    return {"pedidos": pedidos}
+
+@order_router.post("/pedido/adicionar-item/{id_pedido}")
+async def adicionar_item_ao_pedido(
+    id_pedido: int,
+    item_scheme: ItemPedidoScheme,
+    usuario: Usuario = Depends(verificar_token),
+    db: Session = Depends(get_db)
+):
+    pedido = db.query(Pedido).filter(Pedido.id == id_pedido).first()
+
+    produto = db.query(Produto).filter(Produto.id == item_scheme.produto_id).first()
+
+
+
+    if not produto:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Apenas administradores podem listar todos os pedidos."
+        )
+    
+    print(produto)
+
+    if not pedido:
+        pass
+    
+
+    if not usuario.admin and usuario.id == pedido.cliente_id:
+        pass
+    
+    
+
+    novo_item_pedido = ItemPedido(
+        pedido_id=item_scheme.pedido_id,
+        produto_id=item_scheme.produto_id,
+        quantidade=item_scheme.quantidade,
+        valor= float(produto.preco * item_scheme.quantidade)
+    )
+
+    db.add(novo_item_pedido)
+    db.commit()
+    db.refresh(novo_item_pedido)
+
+    return {
+        "mensagem": f"novo item ({novo_item_pedido.quantidade} x {produto.nome}) adicionado com sucesso"
+    }
+
+@order_router.post("/criar-produto")
+async def criar_produto(
+    produto_scheme: ProdutoScheme,
+    usuario: Usuario = Depends(verificar_token),
+    db: Session = Depends(get_db)    
+):
+    if not usuario.admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Apenas administradores podem listar todos os pedidos."
+        )
+    
+    novo_produto = Produto(
+        nome=produto_scheme.nome,
+        descricao=produto_scheme.descricao,
+        preco=produto_scheme.preco
+    )
+
+    db.add(novo_produto)
+    db.commit()
+    db.refresh(novo_produto)
+
+    return{
+        "mensagem":f"Novo Produto {produto_scheme.nome} criado com sucesso"
+    }
+    

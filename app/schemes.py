@@ -16,9 +16,19 @@ class PedidoScheme(BaseModel):
     class Config:
         from_attributes = True
 
-class LoginScheme(BaseModel):
-    email: EmailStr
-    senha: str
+class ItemPedidoScheme(BaseModel):
+    pedido_id: int
+    produto_id: int
+    quantidade: int
+
+    class Config:
+        from_attributes = True
+
+
+class ProdutoScheme(BaseModel):
+    nome: str
+    descricao: Optional[str] = None
+    preco: float
 
     class Config:
         from_attributes = True

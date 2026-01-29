@@ -25,9 +25,9 @@ No estágio atual, a aplicação já possui a estrutura base e testes configurad
 Abaixo, o status atual das funcionalidades:
 
 - [x] **Configuração do Ambiente** (Poetry, Git, Taskipy)
-- [ ] **Estrutura básica da API** (Rotas, Schemas e Settings) 
-- [ ] **Integração com Banco de Dados** (Modelos e SQLAlchemy)  🚧 *<-- Foco Atual*
 - [x] **Sistema de Migrações** (Alembic)
+- [x] **Integração com Banco de Dados** (Modelos e SQLAlchemy)  
+- [ ] **Estrutura básica da API** (Rotas, Schemas e Settings) 🚧 *<-- Foco Atual*
 - [x] **Autenticação e Segurança** (JWT) 
 - [ ] **Deploy**
 
