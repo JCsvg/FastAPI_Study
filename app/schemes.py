@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
+from datetime import datetime
 
 class UsuarioScheme(BaseModel):
     nome: str
@@ -29,6 +30,14 @@ class ProdutoScheme(BaseModel):
     nome: str
     descricao: Optional[str] = None
     preco: float
+
+    class Config:
+        from_attributes = True
+
+class ReciboScheme(BaseModel):
+    pedido_id: int
+    data_emissao: datetime
+    valor: float
 
     class Config:
         from_attributes = True
